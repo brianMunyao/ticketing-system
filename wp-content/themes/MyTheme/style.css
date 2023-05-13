@@ -1,0 +1,93 @@
+/*
+    Theme Name: MyTheme
+    Author: Brian
+    Author URI: https://www.example.com
+    Version: 1.0
+    Description: Lorem ipsum dolor sit, amet consectetur adipisicing elit. Atque saepe culpa vitae quaerat labore. Nihil doloremque numquam et sapiente quas error laboriosam debitis odio cumque blanditiis, cupiditate qui enim officiis.
+*/
+
+*,
+html {
+	padding: 0;
+	margin: 0;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+		Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+		sans-serif;
+	box-sizing: border-box;
+}
+
+.form-con {
+	width: 300px;
+	margin: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+.form-con h2 {
+	margin-bottom: 35px;
+}
+
+.input-con {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 15px;
+}
+
+.input-con div {
+	position: relative;
+	height: 40px;
+	border: solid 1.5px #ddd;
+	border-radius: 8px;
+	overflow: hidden;
+	margin-top: 5px;
+	transition: all 0.2s linear;
+}
+.input-con div:focus-within {
+	border-color: #0071dc;
+}
+
+.input-con div * {
+	position: absolute;
+}
+
+.input-con div ion-icon {
+	z-index: 1;
+	top: 50%;
+	transform: translate(10px, -50%);
+}
+
+.input-con label {
+	color: rgb(45, 45, 45);
+}
+.input-con div input {
+	width: 100%;
+	height: 100%;
+	padding: 5px 5px 5px 36px;
+	border: none;
+}
+.custom-btn {
+	width: 280px;
+	padding: 7px 20px;
+	background: #0071dc;
+	color: #fff;
+	border-radius: 7px;
+	border: none;
+	font-weight: 600;
+	transition: all 0.2s linear;
+}
+.custom-btn:hover {
+	background: #004f9a;
+}
+.custom-btn:active {
+	background: #00386e;
+}
+
+.custom-form .custom-btn {
+	margin-top: 8px;
+}
+
+.custom-form .form-alt-text {
+	margin-top: 15px;
+}
