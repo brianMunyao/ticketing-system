@@ -15,17 +15,31 @@ html {
 		sans-serif;
 	box-sizing: border-box;
 }
+input:focus {
+	outline: none;
+}
+a {
+	color: inherit;
+	text-decoration: none;
+}
 
 .form-con {
-	width: 300px;
+	display: flex;
+	flex-direction: column;
+	height: 90vh;
+}
+
+.form-con-inner {
+	flex: 1;
+	width: 250px;
 	margin: auto;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
 }
-.form-con h2 {
-	margin-bottom: 35px;
+.form-con-inner h2 {
+	margin: 15px 0 25px;
 }
 
 .input-con {
@@ -60,12 +74,14 @@ html {
 
 .input-con label {
 	color: rgb(45, 45, 45);
+	font-size: 15px;
 }
 .input-con div input {
 	width: 100%;
 	height: 100%;
-	padding: 5px 5px 5px 36px;
+	padding: 5px 5px 5px 32px;
 	border: none;
+	font-size: 15px;
 }
 .custom-btn {
 	width: 280px;
@@ -90,4 +106,12 @@ html {
 
 .custom-form .form-alt-text {
 	margin-top: 15px;
+}
+
+footer {
+	padding: 30px 10px;
+	text-align: center;
+	font-size: 15px;
+	color: #454545;
+	width: 100%;
 }
