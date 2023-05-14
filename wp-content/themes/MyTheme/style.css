@@ -22,6 +22,22 @@ a {
 	color: inherit;
 	text-decoration: none;
 }
+nav {
+	padding: 20px;
+	display: flex;
+	align-items: center;
+	background: #f8f8f8;
+}
+nav a {
+	color: dodgerblue;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 18px;
+}
+nav a h3 {
+	font-size: 18px;
+}
 
 .form-con {
 	display: flex;
@@ -114,4 +130,110 @@ footer {
 	font-size: 15px;
 	color: #454545;
 	width: 100%;
+}
+
+.success {
+	background: rgba(47, 204, 68, 0.2);
+	width: fit-content;
+	padding: 10px;
+	color: rgba(47, 204, 68, 1);
+	border-radius: 5px;
+	font-weight: 600;
+}
+
+.error {
+	background: rgba(204, 60, 47, 0.2);
+	width: fit-content;
+	padding: 10px;
+	color: rgba(204, 60, 47, 1);
+	border-radius: 5px;
+	font-weight: 600;
+}
+
+.success:empty,
+.error:empty {
+	display: none;
+	padding: 0;
+}
+
+.container {
+	margin: 20px;
+}
+.page-title {
+	margin: 10px 10px 0;
+}
+
+.container h2 {
+	font-size: 15px;
+	font-weight: 600;
+	margin: 30px 0 10px;
+	color: #636564;
+	width: fit-content;
+	padding: 6px 10px;
+	border-radius: 4px;
+	background: #ddd;
+	letter-spacing: 0.5px;
+}
+
+.active-tickets h2 {
+	background: #49af41;
+	color: #fff;
+}
+
+table {
+	font-size: 15px;
+	width: 100%;
+	border-collapse: collapse;
+}
+
+table,
+th,
+td {
+	border: 2px solid #ddd;
+}
+
+th,
+td {
+	text-align: left;
+	padding: 8px;
+}
+
+.minimal {
+	width: 120px;
+}
+
+.empty-list {
+	opacity: 0.5;
+	background: rgba(120, 120, 120, 0.1);
+	font-weight: 500;
+	text-align: center;
+}
+
+button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	gap: 4px;
+	border: none;
+	font-weight: 500;
+	padding: 5px 2px;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+}
+
+.edit-btn {
+	background: dodgerblue;
+}
+
+.delete-btn {
+	background: tomato;
+}
+
+td button {
+	background: none;
+	color: #000;
+	font-size: 20px;
+	padding: 0;
 }

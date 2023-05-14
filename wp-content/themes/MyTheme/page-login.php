@@ -1,33 +1,40 @@
-<?php get_header(); ?>
 <?php
 
 /*
     Template Name: Login Page
 */
 
-if (isset($_POST['submit-login'])) {
-    // $emp_no = $_POST['emp_no'];
-    // $password = $_POST['password'];
+if (is_user_logged_in()) {
+    wp_redirect(home_url());
+}
+?>
 
-    $credentials = [
+
+<?php
+if (isset($_POST['submit-login'])) {
+    $user = wp_signon([
         'user_login' => $_POST['emp_no'],
         'user_password' => $_POST['password'],
         'remember' => true
-    ];
-
-    $user = wp_signon($credentials);
+    ]);
 
     if (is_wp_error($user)) {
         echo 'Login failed: ' . $user->get_error_message();
     } else {
-        echo 'Login successful!';
+        wp_set_current_user($user->ID);
+        wp_set_auth_cookie($user->ID);
+        do_action('wp_login', $user->user_login, $user);
     }
 }
 ?>
 
 
+
+
 <form action="" method="post">
     <div class="form-con">
+        <?php get_header(); ?>
+
         <div class="form-con-inner">
 
             <h2>Login</h2>
