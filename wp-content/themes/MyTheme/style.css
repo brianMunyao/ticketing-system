@@ -136,7 +136,7 @@ footer {
 	background: rgba(47, 204, 68, 0.2);
 	width: fit-content;
 	padding: 10px;
-	color: rgba(47, 204, 68, 1);
+	color: rgb(28, 163, 46);
 	border-radius: 5px;
 	font-weight: 600;
 }
@@ -145,7 +145,7 @@ footer {
 	background: rgba(204, 60, 47, 0.2);
 	width: fit-content;
 	padding: 10px;
-	color: rgba(204, 60, 47, 1);
+	color: rgb(150, 40, 30);
 	border-radius: 5px;
 	font-weight: 600;
 }
@@ -221,14 +221,6 @@ button {
 	border-radius: 5px;
 	color: white;
 	cursor: pointer;
-}
-
-.edit-btn {
-	background: dodgerblue;
-}
-
-.delete-btn {
-	background: tomato;
 }
 
 td button {

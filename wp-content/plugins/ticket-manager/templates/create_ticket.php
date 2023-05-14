@@ -4,6 +4,20 @@ $users = get_users(array(
     'role' => 'employee'
 ));
 
+global $wpdb;
+$tickets = $wpdb->get_results("SELECT t_emp_no FROM wp_tickets WHERE t_status=0 AND t_deleted=0");
+
+function compare_objects($users_arr, $tickets_arr)
+{
+    return $users_arr->user_email === $tickets_arr->t_emp_no;
+}
+
+$filtered_users = array_filter($users, function ($user) use ($tickets) {
+    return count(array_filter($tickets, function ($ticket) use ($user) {
+        return compare_objects($user, $ticket);
+    })) > 0;
+});
+
 ?>
 
 <style>
@@ -96,8 +110,7 @@ if ($error_msg !== '') {
         <select name="emp_no" id="emp_no" required>
             <option value="" disabled selected hidden>Select an option</option>
             <?php
-            foreach ($users as $user) {
-                // $emp_no = $user->user_login;
+            foreach ($filtered_users as $user) {
                 $emp_email = $user->user_email
             ?>
 
