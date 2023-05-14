@@ -10,7 +10,7 @@
     Plugin URI: http://example.com
     Description: A plugin for managing tickets issued to employees
     Vesion: 1.0
-    Author: Brin
+    Author: Brian
     Author URI: http://example.com
  */
 
@@ -18,7 +18,7 @@ defined('ABSPATH') or die("Stop");
 
 use Inc\Base\Activate;
 use Inc\Base\Deactivate;
-use  Inc\Init;
+use Inc\Init;
 
 if (file_exists(dirname(__FILE__) . '/vendor/autoload.php')) {
     require_once(dirname(__FILE__) . '/vendor/autoload.php');

@@ -22,11 +22,8 @@ class UserRole
             [
                 'read' => true,
                 'edit_posts' => true,
-                'edit_pages' => true,
-                'upload_files' => true,
                 'delete_posts' => true,
                 'edit_published_posts' => true,
-                'delete_published_pages' => true,
                 'delete_published_posts' => true
             ]
         );
