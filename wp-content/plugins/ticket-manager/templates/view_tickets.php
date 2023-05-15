@@ -5,25 +5,36 @@ global $wpdb;
 
 $tickets_active = $wpdb->get_results("SELECT * FROM wp_tickets WHERE t_status=0 AND t_deleted=0");
 $tickets_closed = $wpdb->get_results("SELECT * FROM wp_tickets WHERE t_status=1 AND t_deleted=0");
+$tickets_trash = $wpdb->get_results("SELECT * FROM wp_tickets WHERE t_deleted=1");
 ?>
 
 <style>
-    .success {
-        background: rgba(47, 204, 68, 0.2);
+    .title-con {
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+    }
+
+    .title-con a {
+        color: rgb(180, 20, 10);
+    }
+
+    .success,
+    .error {
         width: fit-content;
-        padding: 10px;
-        color: rgba(47, 204, 68, 1);
         border-radius: 5px;
         font-weight: 600;
+        padding: 10px;
+    }
+
+    .success {
+        background: rgba(47, 204, 68, 0.2);
+        color: rgb(28, 163, 46);
     }
 
     .error {
         background: rgba(204, 60, 47, 0.2);
-        width: fit-content;
-        padding: 10px;
-        color: rgba(204, 60, 47, 1);
-        border-radius: 5px;
-        font-weight: 600;
+        color: rgb(150, 40, 30);
     }
 
     .success:empty,
@@ -39,11 +50,15 @@ $tickets_closed = $wpdb->get_results("SELECT * FROM wp_tickets WHERE t_status=1 
     h2 {
         margin-top: 30px;
         color: #636564;
-        /* border-bottom: 1.5px solid #ccc; */
         width: fit-content;
         padding: 6px 10px;
         border-radius: 4px;
         background: #ddd;
+    }
+
+    .active-tickets h2 {
+        background: #49af41;
+        color: #fff;
     }
 
     table {
@@ -104,7 +119,13 @@ $tickets_closed = $wpdb->get_results("SELECT * FROM wp_tickets WHERE t_status=1 
 
 
 <div class="container">
-    <h1>Tickets</h1>
+    <div class="title-con">
+        <h1>Tickets</h1>
+
+        <a href='<?php echo "/ticketing-system/wp-admin/admin.php?page=deleted_tickets" ?>'>
+            Trash (<?php echo count($tickets_trash); ?>)
+        </a>
+    </div>
 
     <?php
     global $success_msg;
@@ -138,15 +159,14 @@ $tickets_closed = $wpdb->get_results("SELECT * FROM wp_tickets WHERE t_status=1 
                     $edit_url = "/ticketing-system/wp-admin/admin.php?page=edit_ticket&t_id={$ticket->t_id}";
                 ?>
                     <tr>
-                        <!-- <td><input type="checkbox" name="close_ticket" id="close_ticket"></td> -->
                         <td><?php echo $ticket->t_title; ?></td>
                         <td><?php echo $ticket->t_emp_no; ?></td>
                         <td><?php echo $ticket->t_duedate; ?></td>
                         <td>
                             <a href="<?php echo $edit_url; ?>">
                                 <button class="edit-btn" name="edit-ticket" type="submit"><ion-icon name='create'></ion-icon> Edit</button>
+                            </a>
                         </td>
-                        </a>
                         <form action="" method="post">
                             <input type="hidden" name="t_id" value="<?php echo $ticket->t_id; ?>">
                             <td><button class="delete-btn" name="delete-ticket" type="submit"><ion-icon name='trash'></ion-icon> Delete</button></td>
@@ -159,7 +179,7 @@ $tickets_closed = $wpdb->get_results("SELECT * FROM wp_tickets WHERE t_status=1 
                 if (count($tickets_active) === 0) {
                 ?>
                     <tr>
-                        <td class='empty-list' colspan='3'>No active tickets</td>
+                        <td class='empty-list' colspan='5'>No active tickets</td>
                     </tr>
                 <?php
                 }
@@ -178,16 +198,27 @@ $tickets_closed = $wpdb->get_results("SELECT * FROM wp_tickets WHERE t_status=1 
                     <th>Title</th>
                     <th>Assigned to</th>
                     <th>Due date</th>
+                    <th class='btn-col'>Edit</th>
+                    <th class='btn-col'>Delete</th>
                 </tr>
 
                 <?php
                 foreach ($tickets_closed as $ticket) {
+                    $edit_url = admin_url("admin.php?page=edit_ticket&t_id={$ticket->t_id}");
                 ?>
                     <tr>
-                        <!-- <td><input type="checkbox" name="close_ticket" id="close_ticket"></td> -->
                         <td><?php echo $ticket->t_title; ?></td>
                         <td><?php echo $ticket->t_emp_no; ?></td>
                         <td><?php echo $ticket->t_duedate; ?></td>
+                        <td>
+                            <a href="<?php echo $edit_url; ?>">
+                                <button class="edit-btn" name="edit-ticket" type="submit"><ion-icon name='create'></ion-icon> Edit</button>
+                            </a>
+                        </td>
+                        <form action="" method="post">
+                            <input type="hidden" name="t_id" value="<?php echo $ticket->t_id; ?>">
+                            <td><button class="delete-btn" name="delete-ticket" type="submit"><ion-icon name='trash'></ion-icon> Delete</button></td>
+                        </form>
                     </tr>
 
                 <?php
@@ -196,7 +227,7 @@ $tickets_closed = $wpdb->get_results("SELECT * FROM wp_tickets WHERE t_status=1 
                 if (count($tickets_closed) === 0) {
                 ?>
                     <tr>
-                        <td class='empty-list' colspan='3'>No closed tickets</td>
+                        <td class='empty-list' colspan='5'>No closed tickets</td>
                     </tr>
                 <?php
                 }

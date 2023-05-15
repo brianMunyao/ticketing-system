@@ -41,111 +41,257 @@ $tickets_closed = $wpdb->get_results("SELECT * FROM wp_tickets WHERE t_status=1 
 ?>
 
 
-<h2 class="page-title">My Tickets</h2>
 <div class="container">
-
     <?php
-    if ($success_msg !== '') {
-        echo "<p class='success'>$success_msg</p>";
-    }
-    if ($error_msg !== '') {
-        echo "<p class='error'>$error_msg</p>";
-    }
+    if (current_user_can('manage_options')) {
     ?>
 
-    <div class="active-tickets">
-        <h2>Active Tickets</h2>
 
-        <div class="active-tickets-list">
-            <table>
-                <tr>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th class="minimal">Due date</th>
-                    <th>Done</th>
-                </tr>
+        <?php
+        global $wpdb;
 
-                <?php
-                foreach ($tickets_active as $ticket) {
-                    $edit_url = "/ticketing-system/wp-admin/admin.php?page=edit_ticket&t_id={$ticket->t_id}";
-                ?>
-                    <tr>
-                        <td><?php echo $ticket->t_title; ?></td>
-                        <td><?php echo $ticket->t_desc; ?></td>
-                        <td class="minimal"><?php echo $ticket->t_duedate; ?></td>
-                        <td>
-                            <form action="" method="post" id="undone-form">
-                                <input type="hidden" name="t_id" value="<?php echo $ticket->t_id; ?>">
-                                <input type="hidden" name="t_check" value="1">
-                                <button type="submit" name="check-submit">
-                                    <ion-icon name="square-outline"></ion-icon>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
+        $tickets_active_admin = $wpdb->get_results("SELECT * FROM wp_tickets WHERE t_status=0 AND t_deleted=0");
+        $tickets_closed_admin = $wpdb->get_results("SELECT * FROM wp_tickets WHERE t_status=1 AND t_deleted=0");
+        $tickets_trash_admin = $wpdb->get_results("SELECT * FROM wp_tickets WHERE t_deleted=1");
+        ?>
 
-                <?php
-                }
+        <div class="container">
+            <div class="title-con">
+                <h1>All Tickets</h1>
 
-                if (count($tickets_active) === 0) {
-                ?>
-                    <tr>
-                        <td class='empty-list' colspan='4'>No active tickets</td>
-                    </tr>
-                <?php
-                }
-                ?>
-            </table>
+                <a href='<?php echo admin_url('admin.php?page=deleted_tickets'); ?>'>
+                    Trash (<?php echo count($tickets_trash_admin); ?>)
+                </a>
+            </div>
 
+            <!-- <div class="top-links">
+                <a href=""><button>Create a Ticket</button></a>
+            </div> -->
+
+            <?php
+            global $success_msg;
+            global $error_msg;
+            ?>
+
+            <?php
+            if ($success_msg !== '') {
+                echo "<p class='success'>$success_msg</p>";
+            }
+            if ($error_msg !== '') {
+                echo "<p class='error'>$error_msg</p>";
+            }
+            ?>
+
+            <div class="active-tickets">
+                <h2>Active Tickets</h2>
+
+                <div class="active-tickets-list">
+                    <table>
+                        <tr>
+                            <th>Title</th>
+                            <th>Assigned to</th>
+                            <th class="minimal">Due date</th>
+                            <th class='btn-col'>Edit</th>
+                            <th class='btn-col'>Delete</th>
+                        </tr>
+
+                        <?php
+                        foreach ($tickets_active_admin as $ticket) {
+                            $edit_url = admin_url("admin.php?page=edit_ticket&t_id={$ticket->t_id}");
+                        ?>
+                            <tr>
+                                <td><?php echo $ticket->t_title; ?></td>
+                                <td><?php echo $ticket->t_emp_no; ?></td>
+                                <td class="minimal"><?php echo $ticket->t_duedate; ?></td>
+                                <td>
+                                    <a href="<?php echo $edit_url; ?>">
+                                        <button class="edit-btn" name="edit-ticket" type="submit"><ion-icon name='create'></ion-icon> Edit</button>
+                                    </a>
+                                </td>
+                                <form action="" method="post">
+                                    <input type="hidden" name="t_id" value="<?php echo $ticket->t_id; ?>">
+                                    <td><button class="delete-btn" name="delete-ticket" type="submit"><ion-icon name='trash'></ion-icon> Delete</button></td>
+                                </form>
+                            </tr>
+
+                        <?php
+                        }
+
+                        if (count($tickets_active_admin) === 0) {
+                        ?>
+                            <tr>
+                                <td class='empty-list' colspan='5'>No active tickets</td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
+                    </table>
+
+                </div>
+            </div>
+
+            <div class="closed-tickets">
+                <h2>Closed Tickets</h2>
+
+                <div class="closed-tickets-list">
+                    <table>
+                        <tr>
+                            <th>Title</th>
+                            <th>Assigned to</th>
+                            <th class="minimal">Due date</th>
+                            <th class='btn-col'>Edit</th>
+                            <th class='btn-col'>Delete</th>
+                        </tr>
+
+                        <?php
+                        foreach ($tickets_closed_admin as $ticket) {
+                            $edit_url = admin_url("admin.php?page=edit_ticket&t_id={$ticket->t_id}");
+                        ?>
+                            <tr>
+                                <td><?php echo $ticket->t_title; ?></td>
+                                <td><?php echo $ticket->t_emp_no; ?></td>
+                                <td class="minimal"><?php echo $ticket->t_duedate; ?></td>
+                                <td>
+                                    <a href="<?php echo $edit_url; ?>">
+                                        <button class="edit-btn" name="edit-ticket" type="submit"><ion-icon name='create'></ion-icon> Edit</button>
+                                    </a>
+                                </td>
+                                <form action="" method="post">
+                                    <input type="hidden" name="t_id" value="<?php echo $ticket->t_id; ?>">
+                                    <td><button class="delete-btn" name="delete-ticket" type="submit"><ion-icon name='trash'></ion-icon> Delete</button></td>
+                                </form>
+                            </tr>
+
+                        <?php
+                        }
+
+                        if (count($tickets_closed_admin) === 0) {
+                        ?>
+                            <tr>
+                                <td class='empty-list' colspan='5'>No closed tickets</td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
+                    </table>
+
+                </div>
+            </div>
         </div>
-    </div>
+    <?php
+    } else {
+    ?>
 
-    <div class="closed-tickets">
-        <h2>Closed Tickets</h2>
 
-        <div class="closed-tickets-list">
-            <table>
-                <tr>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th class="minimal">Due date</th>
-                    <th>Done</th>
-                </tr>
 
-                <?php
-                foreach ($tickets_closed as $ticket) {
-                ?>
+        <h3 class="page-title">My Tickets</h3>
+
+        <?php
+        if ($success_msg !== '') {
+            echo "<p class='success'>$success_msg</p>";
+        }
+        if ($error_msg !== '') {
+            echo "<p class='error'>$error_msg</p>";
+        }
+        ?>
+
+
+
+        <div class="active-tickets">
+            <h2>Active Tickets</h2>
+
+            <div class="active-tickets-list">
+                <table>
                     <tr>
-                        <td><?php echo $ticket->t_title; ?></td>
-                        <td><?php echo $ticket->t_desc; ?></td>
-                        <td class="minimal"><?php echo $ticket->t_duedate; ?></td>
-                        <td>
-                            <form action="" method="post" id="done-form">
-                                <input type="hidden" name="t_id" value="<?php echo $ticket->t_id; ?>">
-                                <input type="hidden" name="t_check" value="0">
-                                <button type="submit" name="check-submit">
-                                    <ion-icon name="checkbox-outline"></ion-icon>
-                                </button>
-                            </form>
-                        </td>
-
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th class="minimal">Due date</th>
+                        <th>Done</th>
                     </tr>
 
-                <?php
-                }
+                    <?php
+                    foreach ($tickets_active as $ticket) {
+                        $edit_url = admin_url("admin.php?page=edit_ticket&t_id={$ticket->t_id}");
+                    ?>
+                        <tr>
+                            <td><?php echo $ticket->t_title; ?></td>
+                            <td><?php echo $ticket->t_desc; ?></td>
+                            <td class="minimal"><?php echo $ticket->t_duedate; ?></td>
+                            <td>
+                                <form action="" method="post" id="undone-form">
+                                    <input type="hidden" name="t_id" value="<?php echo $ticket->t_id; ?>">
+                                    <input type="hidden" name="t_check" value="1">
+                                    <button type="submit" name="check-submit">
+                                        <ion-icon name="square-outline"></ion-icon>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
 
-                if (count($tickets_closed) === 0) {
-                ?>
-                    <tr>
-                        <td class='empty-list' colspan='4'>No closed tickets</td>
-                    </tr>
-                <?php
-                }
-                ?>
-            </table>
+                    <?php
+                    }
 
+                    if (count($tickets_active) === 0) {
+                    ?>
+                        <tr>
+                            <td class='empty-list' colspan='4'>No active tickets</td>
+                        </tr>
+                    <?php
+                    }
+                    ?>
+                </table>
+
+            </div>
         </div>
-    </div>
+
+        <div class="closed-tickets">
+            <h2>Closed Tickets</h2>
+
+            <div class="closed-tickets-list">
+                <table>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th class="minimal">Due date</th>
+                        <th>Done</th>
+                    </tr>
+
+                    <?php
+                    foreach ($tickets_closed as $ticket) {
+                    ?>
+                        <tr>
+                            <td><?php echo $ticket->t_title; ?></td>
+                            <td><?php echo $ticket->t_desc; ?></td>
+                            <td class="minimal"><?php echo $ticket->t_duedate; ?></td>
+                            <td>
+                                <form action="" method="post" id="done-form">
+                                    <input type="hidden" name="t_id" value="<?php echo $ticket->t_id; ?>">
+                                    <input type="hidden" name="t_check" value="0">
+                                    <button type="submit" name="check-submit">
+                                        <ion-icon name="checkbox-outline"></ion-icon>
+                                    </button>
+                                </form>
+                            </td>
+
+                        </tr>
+
+                    <?php
+                    }
+
+                    if (count($tickets_closed) === 0) {
+                    ?>
+                        <tr>
+                            <td class='empty-list' colspan='4'>No closed tickets</td>
+                        </tr>
+                    <?php
+                    }
+                    ?>
+                </table>
+
+            </div>
+        </div>
+
+    <?php } ?>
 </div>
 
 <?php get_footer(); ?>

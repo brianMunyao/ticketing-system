@@ -7,50 +7,47 @@
 
 namespace Inc\Pages;
 
+use \Inc\Api\SettingsApi;
+use \Inc\Api\AdminMenuCallbacks;
 
 class AdminMenu
 {
+    public $pages = [];
+    public $sub_pages = [];
+
+    public $admin_callbacks;
+    public $settings;
+
+
     function register()
     {
-        add_action('admin_menu', [$this, 'add_create_ticket_page']);
-        add_action('admin_menu', [$this, 'add_view_all_tickets_page']);
+        $this->admin_callbacks = new AdminMenuCallbacks();
+        $this->settings = new SettingsApi;
+
+        $this->pages = [
+            [
+                'page_title' => 'Create Ticket',
+                'menu_title' => 'Create Ticket',
+                'capability' => 'manage_options',
+                'menu_slug' => 'create_ticket',
+                'callback' => [$this->admin_callbacks, "create_ticket_callback"],
+                'icon_url' => 'dashicons-edit',
+                'position' => 110
+            ],
+            [
+                'page_title' => 'View All Tickets',
+                'menu_title' => 'View All Tickets',
+                'capability' => 'manage_options',
+                'menu_slug' => 'view_tickets',
+                'callback' => [$this->admin_callbacks, "view_all_tickets_callback"],
+                'icon_url' => 'dashicons-open-folder',
+                'position' => 111
+            ],
+        ];
+
+        $this->settings->add_pages($this->pages)->register();
         add_action('admin_menu', [$this, 'add_edit_ticket_page']);
-    }
-
-    function add_create_ticket_page()
-    {
-        add_menu_page(
-            'Create Ticket',
-            'Create Ticket',
-            'manage_options',
-            'create_ticket',
-            [$this, "add_create_ticket_cb"],
-            'dashicons-edit',
-            110
-        );
-    }
-
-    function add_create_ticket_cb()
-    {
-        require_once ABSPATH . 'wp-content/plugins/ticket-manager/templates/create_ticket.php';
-    }
-
-    function add_view_all_tickets_page()
-    {
-        add_menu_page(
-            'View All Tickets',
-            'View All Tickets',
-            'manage_options',
-            'view_tickets',
-            [$this, "view_all_cb"],
-            'dashicons-open-folder',
-            111
-        );
-    }
-
-    function view_all_cb()
-    {
-        require_once ABSPATH . 'wp-content/plugins/ticket-manager/templates/view_tickets.php';
+        add_action('admin_menu', [$this, 'view_deleted_tickets_page']);
     }
 
     function add_edit_ticket_page()
@@ -61,12 +58,19 @@ class AdminMenu
             'Edit Ticket',
             'manage_options',
             'edit_ticket',
-            [$this, "edit_ticket_cb"]
+            [$this->admin_callbacks, "edit_ticket_callback"]
         );
     }
 
-    function edit_ticket_cb()
+    function view_deleted_tickets_page()
     {
-        require_once ABSPATH . 'wp-content/plugins/ticket-manager/templates/edit_ticket.php';
+        add_submenu_page(
+            " ",
+            'Deleted Tickets',
+            'Deleted Tickets',
+            'manage_options',
+            'deleted_tickets',
+            [$this->admin_callbacks, "view_deleted_tickets_callback"],
+        );
     }
 }

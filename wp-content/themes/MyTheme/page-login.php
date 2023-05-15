@@ -4,9 +4,8 @@
     Template Name: Login Page
 */
 
-if (is_user_logged_in()) {
+if (is_user_logged_in())
     wp_redirect(home_url());
-}
 ?>
 
 
@@ -19,11 +18,8 @@ if (isset($_POST['submit-login'])) {
     ]);
 
     if (is_wp_error($user)) {
-        echo 'Login failed: ' . $user->get_error_message();
-    } else {
-        wp_set_current_user($user->ID);
-        wp_set_auth_cookie($user->ID);
-        do_action('wp_login', $user->user_login, $user);
+        global $error_msg;
+        $error_msg = 'Login failed: ' . $user->get_error_message();
     }
 }
 ?>
@@ -38,6 +34,8 @@ if (isset($_POST['submit-login'])) {
         <div class="form-con-inner">
 
             <h2>Login</h2>
+
+            <p class="error form-error"><?php echo $error_msg ?></p>
 
             <div class="input-con">
                 <label for="employee-num">Employee Number</label>
@@ -54,7 +52,7 @@ if (isset($_POST['submit-login'])) {
                 </div>
             </div>
 
-            <button type="submit" name="submit-login">LOGIN</button>
+            <button type="submit" name="submit-login" class='custom-btn'>LOGIN</button>
         </div>
         <?php get_footer() ?>
     </div>

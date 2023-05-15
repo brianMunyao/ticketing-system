@@ -15,6 +15,7 @@ class ManageTicket
         $this->add_new_ticket();
         $this->edit_ticket();
         $this->delete_ticket();
+        $this->restore_ticket();
     }
 
     function create_tickets_table()
@@ -106,6 +107,27 @@ class ManageTicket
                 $success_msg = "Ticked updated successfully";
             } else {
                 $error_msg = "Error updating ticket";
+            }
+        }
+    }
+
+    function restore_ticket()
+    {
+        if (isset($_POST['restore-ticket'])) {
+            $data = ['t_deleted' => 0];
+            $where = ['t_id' => $_POST['t_id']];
+
+            global $wpdb;
+            global $success_msg;
+            global $error_msg;
+
+            $table_name = $wpdb->prefix . 'tickets';
+            $results = $wpdb->update($table_name, $data, $where);
+
+            if ($results) {
+                $success_msg = "Ticked restored successfully";
+            } else {
+                $error_msg = "Error restoring ticket";
             }
         }
     }

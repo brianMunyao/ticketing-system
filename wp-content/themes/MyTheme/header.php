@@ -12,45 +12,13 @@
 </head>
 
 <body>
-
-
-    <?php
-    // $user = wp_get_current_user();
-    // var_dump($user);
-
-    // $slug = basename(get_permalink());
-
-    // if ($slug == 'login') {
-    ?>
-    <!-- <nav class="nav-login">
-                <a href="<?php // echo home_url(); 
-                            ?>">
-                    <h2>Ticket Manager</h2>
-                </a>
-            </nav> -->
-
-    <?php
-    // } else {
-    // if (is_user_logged_in()) {
-    // $user = get_user_info();
-    // $fullname = $user['fullname'];
-    // $names = explode(' ', $fullname);
-
-    // $firstname = $names[0];
-    // $user_id = $user['id'];
-    // global $wpdb;
-
-    // $cart_items = $wpdb->get_results("SELECT * FROM wp_cart JOIN wp_products ON wp_products.p_id=wp_cart.p_id  WHERE user_id=$user_id");
-    // }
-    ?>
-
-    <?php
-    // }
-    ?>
-
     <nav>
         <a href="<?php echo home_url(); ?>">
             <ion-icon name="ticket"></ion-icon>
             <h3>Ticket Manager</h2>
         </a>
+
+        <div class="nav-links">
+            <a href="<?php echo admin_url('admin.php?page=create_ticket'); ?>">Add New Ticket</a>
+        </div>
     </nav>
