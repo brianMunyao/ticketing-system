@@ -105,12 +105,12 @@ $tickets_closed = $wpdb->get_results("SELECT * FROM wp_tickets WHERE t_status=1 
                                 <td class="minimal"><?php echo $ticket->t_duedate; ?></td>
                                 <td>
                                     <a href="<?php echo $edit_url; ?>">
-                                        <button class="edit-btn" name="edit-ticket" type="submit"><ion-icon name='create'></ion-icon> Edit</button>
+                                        <button class="default-btn edit-btn" name="edit-ticket" type="submit"><ion-icon name='create'></ion-icon> Edit</button>
                                     </a>
                                 </td>
                                 <form action="" method="post">
                                     <input type="hidden" name="t_id" value="<?php echo $ticket->t_id; ?>">
-                                    <td><button class="delete-btn" name="delete-ticket" type="submit"><ion-icon name='trash'></ion-icon> Delete</button></td>
+                                    <td><button class="default-btn delete-btn" name="delete-ticket" type="submit"><ion-icon name='trash'></ion-icon> Delete</button></td>
                                 </form>
                             </tr>
 
@@ -221,7 +221,7 @@ $tickets_closed = $wpdb->get_results("SELECT * FROM wp_tickets WHERE t_status=1 
                                 <form action="" method="post" id="undone-form">
                                     <input type="hidden" name="t_id" value="<?php echo $ticket->t_id; ?>">
                                     <input type="hidden" name="t_check" value="1">
-                                    <button type="submit" name="check-submit">
+                                    <button type="submit" name="check-submit" class='no-btn'>
                                         <ion-icon name="square-outline"></ion-icon>
                                     </button>
                                 </form>
@@ -267,7 +267,7 @@ $tickets_closed = $wpdb->get_results("SELECT * FROM wp_tickets WHERE t_status=1 
                                 <form action="" method="post" id="done-form">
                                     <input type="hidden" name="t_id" value="<?php echo $ticket->t_id; ?>">
                                     <input type="hidden" name="t_check" value="0">
-                                    <button type="submit" name="check-submit">
+                                    <button type="submit" name="check-submit" class="no-btn">
                                         <ion-icon name="checkbox-outline"></ion-icon>
                                     </button>
                                 </form>

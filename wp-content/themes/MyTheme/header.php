@@ -18,7 +18,13 @@
             <h3>Ticket Manager</h2>
         </a>
 
-        <div class="nav-links">
-            <a href="<?php echo admin_url('admin.php?page=create_ticket'); ?>">Add New Ticket</a>
-        </div>
+        <?php
+        if (current_user_can('manage_options')) {
+        ?>
+            <div class="nav-links">
+                <a href="<?php echo admin_url('admin.php?page=create_ticket'); ?>">Add New Ticket</a>
+            </div>
+        <?php
+        }
+        ?>
     </nav>

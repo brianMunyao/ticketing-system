@@ -222,7 +222,7 @@ td {
 	text-align: center;
 }
 
-table button {
+.default-btn {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -232,8 +232,6 @@ table button {
 	font-weight: 500;
 	padding: 4px 5px;
 	border-radius: 5px;
-	background: dodgerblue;
-	color: #fff;
 	font-size: 15px;
 	cursor: pointer;
 }
@@ -241,21 +239,6 @@ table button {
 /* 
 Admin view
 */
-.top-links {
-	display: flex;
-	gap: 10px;
-	padding: 20px;
-}
-.top-links button {
-	background: dodgerblue;
-	color: #fff;
-	font-size: 16px;
-	padding: 8px 12px;
-	border: none;
-	font-weight: 500;
-	border-radius: 5px;
-	cursor: pointer;
-}
 
 .title-con {
 	display: flex;
@@ -266,36 +249,8 @@ Admin view
 .title-con a {
 	color: rgb(180, 20, 10);
 }
-/* 
-.success,
-.error {
-	width: fit-content;
-	border-radius: 5px;
-	font-weight: 600;
-	padding: 10px;
-}
 
-.success {
-	background: rgba(47, 204, 68, 0.2);
-	color: rgb(28, 163, 46);
-}
-
-.error {
-	background: rgba(204, 60, 47, 0.2);
-	color: rgb(150, 40, 30);
-}
-
-.success:empty,
-.error:empty {
-	display: none;
-	padding: 0;
-} */
-
-/* .container {
-	margin-right: 20px;
-} */
-
-h2 {
+.default-title h2 {
 	margin-top: 30px;
 	color: #636564;
 	width: fit-content;
@@ -304,62 +259,23 @@ h2 {
 	background: #ddd;
 }
 
-.active-tickets h2 {
-	background: #49af41;
-	color: #fff;
-}
-
-table {
-	font-size: 15px;
-	width: 100%;
-	border-collapse: collapse;
-}
-
-table,
-th,
-td {
-	border: 2px solid #ddd;
-}
-
-th,
-td {
-	text-align: left;
-	padding: 8px;
-}
-
-/* .minimal {
-	min-width: max-content;
-} */
-
-/* .empty-list {
-	opacity: 0.5;
-	background: rgba(120, 120, 120, 0.1);
-	font-weight: 500;
-	text-align: center;
-} */
-
 .btn-col {
 	width: 70px;
 }
-/* 
-button {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-	gap: 4px;
+
+.no-btn {
 	border: none;
-	font-weight: 500;
-	padding: 5px 2px;
-	border-radius: 5px;
-	color: white;
+	background: transparent;
 	cursor: pointer;
-} */
+	font-size: 20px;
+}
 
 .edit-btn {
+	color: #fff;
 	background: dodgerblue;
 }
 
 .delete-btn {
+	color: #fff;
 	background: tomato;
 }

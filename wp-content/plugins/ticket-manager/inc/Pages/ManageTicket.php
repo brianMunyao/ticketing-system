@@ -104,9 +104,9 @@ class ManageTicket
             $results = $wpdb->update($table_name, $data, $where);
 
             if ($results) {
-                $success_msg = "Ticked updated successfully";
+                $success_msg = "Ticked deleted successfully";
             } else {
-                $error_msg = "Error updating ticket";
+                $error_msg = "Error deleting ticket";
             }
         }
     }
