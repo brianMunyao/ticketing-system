@@ -107,6 +107,10 @@ $tickets_trash = $wpdb->get_results("SELECT * FROM wp_tickets WHERE t_deleted=1"
     .delete-btn {
         background: tomato;
     }
+
+    .restore-btn {
+        background: dodgerblue;
+    }
 </style>
 
 
@@ -150,7 +154,7 @@ $tickets_trash = $wpdb->get_results("SELECT * FROM wp_tickets WHERE t_deleted=1"
                         <td><?php echo $ticket->t_duedate; ?></td>
                         <form action="" method="post">
                             <input type="hidden" name="t_id" value="<?php echo $ticket->t_id; ?>">
-                            <td><button class="delete-btn" name="restore-ticket" type="submit"><ion-icon name='trash'></ion-icon> Restore</button></td>
+                            <td><button class="restore-btn" name="restore-ticket" type="submit"><ion-icon name="arrow-undo-outline"></ion-icon> Restore</button></td>
                         </form>
                     </tr>
 
