@@ -30,7 +30,7 @@ nav {
 	background: #f8f8f8;
 }
 nav > a {
-	color: dodgerblue;
+	color: teal;
 	display: flex;
 	align-items: center;
 	gap: 10px;
@@ -85,7 +85,7 @@ nav .nav-links a {
 	transition: all 0.2s linear;
 }
 .input-con div:focus-within {
-	border-color: #0071dc;
+	border-color: teal;
 }
 
 .input-con div * {
@@ -112,7 +112,7 @@ nav .nav-links a {
 .custom-btn {
 	width: 100%;
 	padding: 7px 20px;
-	background: #0071dc;
+	background: teal;
 	color: #fff;
 	border-radius: 7px;
 	border: none;
@@ -120,10 +120,10 @@ nav .nav-links a {
 	transition: all 0.2s linear;
 }
 .custom-btn:hover {
-	background: #004f9a;
+	background: rgb(1, 99, 99);
 }
 .custom-btn:active {
-	background: #00386e;
+	background: rgb(1, 82, 82);
 }
 
 .custom-form .custom-btn {
